@@ -8,14 +8,12 @@ const setupDB = async function () {
   try {
     await client.connect();
     console.log('Connected correctly to server');
-    mongodb = client.db(process.env.DB_NAME);
+    return client;
   } catch (err) {
     console.log(err.stack);
-  } finally {
-    await client.close();
   }
 };
 
-const getDB = () => mongodb;
+const getDB = () => client.db(process.env.DB_NAME);
 
 module.exports = { setupDB, getDB };

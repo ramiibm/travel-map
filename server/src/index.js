@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
-const { setupDB } = require('./config/connect');
+const { setupDB, getDB } = require('./config/connect');
 
 //GraphQL components
 const schema = buildSchema(`
@@ -27,12 +27,22 @@ app.use(
 );
 
 const init = async () => {
-  // connect to mongodb
-  await setupDB().catch(console.dir);
+  let mongoClient;
+  try {
+    // connect to mongodb
+    mongoClient = await setupDB().catch(console.dir);
 
-  // launch server
-  app.listen(4000);
-  console.log('Running a GraphQL API server at http://localhost:4000/graphql');
+    // launch server
+    app.listen(4000);
+    console.log(
+      'Running a GraphQL API server at http://localhost:4000/graphql'
+    );
+
+    const mongoDb = await getDB();
+  } finally {
+    mongoClient.close();
+    console.log('database connection closed');
+  }
 };
 
 init();
