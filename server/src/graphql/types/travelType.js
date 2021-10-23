@@ -6,7 +6,7 @@ const {
 } = require('graphql');
 
 // Define the Travel Type (first itteration)
-const travelType = GraphQLObjectType({
+const travelType = new GraphQLObjectType({
   name: 'Travel',
   fields: {
     id: { type: GraphQLID },

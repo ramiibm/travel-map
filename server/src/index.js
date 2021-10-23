@@ -4,13 +4,9 @@ const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
 const { setupDB, getDB } = require('./config/connect');
+const { schema } = require('./graphql/schema');
 
 //GraphQL components
-const schema = buildSchema(`
-    type Query {
-        hello: String
-    }
-`);
 const root = {
   hello: () => 'Hello World',
 };
@@ -40,8 +36,8 @@ const init = async () => {
 
     const mongoDb = await getDB();
   } finally {
-    mongoClient.close();
-    console.log('database connection closed');
+    //mongoClient.close();
+    //console.log('database connection closed');
   }
 };
 
