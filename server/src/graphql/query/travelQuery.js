@@ -1,5 +1,6 @@
-const { GraphQLObjectType } = require('graphql');
+const { GraphQLObjectType, GraphQLList } = require('graphql');
 const { travelType } = require('../types/travelType');
+const TravelService = require('../../services/travelService');
 
 const travels = [
   { id: 1446412739542, city: 'Milan', rating: 5 },
@@ -10,10 +11,13 @@ const travels = [
 const queryType = new GraphQLObjectType({
   name: 'Query',
   fields: {
-    travel: {
-      type: travelType,
+    travels: {
+      type: GraphQLList(travelType),
       args: {},
-      resolve: () => travels[0],
+      resolve: async () => {
+        const travelService = new TravelService();
+        return await travelService.getAllTravels();
+      },
     },
   },
 });
