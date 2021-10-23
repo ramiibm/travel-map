@@ -14,3 +14,5 @@ const travelType = GraphQLObjectType({
     rating: { type: GraphQLInt },
   },
 });
+
+module.exports = { travelType };
