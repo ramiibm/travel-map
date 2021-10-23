@@ -1,7 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const url =
-  'mongodb+srv://app-server:<password>@travel-map.vot2f.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@travel-map.vot2f.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(url);
 
 async function run() {
