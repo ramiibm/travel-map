@@ -1,20 +1,14 @@
 const { GraphQLObjectType, GraphQLID } = require('graphql');
 const { travelInput } = require('../types/travelInput');
 const { travelType } = require('../types/travelType');
+const TravelService = require('../../services/travelService');
 
 const travels = [
   { id: 1446412739542, city: 'Milan', rating: 5 },
   { id: 1446412739543, city: 'Biarritz', rating: 5 },
 ];
 // Create a new travel
-const createTravel = ({ input }) => {
-  // Create a random id for our "database".
-  const id = require('crypto').randomBytes(10).toString('hex');
-  const newTravel = { id, ...input };
-  travels.push(newTravel);
-  console.log('travels', travels);
-  return newTravel;
-};
+const createTravel = async ({ input }) => {};
 
 // Update an existing travel
 const updateTravel = (id, { input }) => {};
@@ -28,18 +22,22 @@ const mutationType = new GraphQLObjectType({
       args: {
         input: { type: travelInput },
       },
-      resolve: (_, { input }) => {
-        return createTravel({ input });
+      resolve: async (_, { input }) => {
+        const travelService = new TravelService();
+        return await travelService.createTravel({ ...input });
       },
     },
     updateTravel: {
       type: travelType,
       args: {
-        id: { type: GraphQLID },
+        _id: { type: GraphQLID },
         input: { type: travelInput },
       },
-      resolve: (_, { id, input }) => {
-        return updateTravel(id, { input });
+      resolve: async (_, { _id, input }) => {
+        const travelService = new TravelService();
+        return await travelService.updateTravel(_id, {
+          ...input,
+        });
       },
     },
   },

@@ -5,9 +5,13 @@ class TravelService {
     this.TravelRepository = new MongoDbRepo('Travels');
   }
   getAllTravels() {
-    console.log('travelService');
-
     return this.TravelRepository.getAll();
+  }
+  createTravel(doc) {
+    return this.TravelRepository.create(doc);
+  }
+  updateTravel(id, doc) {
+    return this.TravelRepository.updateById(id, doc);
   }
 }
 

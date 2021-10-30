@@ -9,7 +9,7 @@ const {
 const travelType = new GraphQLObjectType({
   name: 'Travel',
   fields: {
-    id: { type: GraphQLID },
+    _id: { type: GraphQLID },
     city: { type: GraphQLString },
     rating: { type: GraphQLInt },
   },
