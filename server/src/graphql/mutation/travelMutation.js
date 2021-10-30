@@ -3,17 +3,7 @@ const { travelInput } = require('../types/travelInput');
 const { travelType } = require('../types/travelType');
 const TravelService = require('../../services/travelService');
 
-const travels = [
-  { id: 1446412739542, city: 'Milan', rating: 5 },
-  { id: 1446412739543, city: 'Biarritz', rating: 5 },
-];
-// Create a new travel
-const createTravel = async ({ input }) => {};
-
-// Update an existing travel
-const updateTravel = (id, { input }) => {};
-
-// Define the Travel Query (first itteration)
+// Define the Travel Mutation
 const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
